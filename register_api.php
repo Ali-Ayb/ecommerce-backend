@@ -39,5 +39,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $gender = $_POST['gender'];
         $date_created = date("Y-m-d H:i:s");
         $deleted = 0;
+
+        $stmt = mysqli_prepare($link, "SELECT email FROM users WHERE email = ?");
+        mysqli_stmt_bind_param($stmt, "s", $email);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_store_result($stmt);
     }
 }
