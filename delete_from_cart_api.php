@@ -6,9 +6,13 @@ $response = [];
 
 if(isset($_POST["cart_id"])){
     $cart_id = $_POST["cart_id"];
-    $query = "delete from carts where cart_id = $cart_id";
+    $sql = "delete from carts where cart_id = ?";
 
-if(mysqli_query($link, $query)){
+    $query = $link->prepare($sql);
+    $query->bind_param('s', $cart_id);
+    $result = $query->execute();
+
+if($result){
     $response["result"] = "removes succefully !";
 }
 
