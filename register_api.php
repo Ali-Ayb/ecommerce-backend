@@ -27,5 +27,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $age = $diff->format('%y');
             return $age;
         };
+
+        $salt = generateRandomString(5);
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $hashedPassword = hash('sha256', $password . $salt);
+        $first_name = $_POST['first_name'];
+        $last_name = $_POST['last_name'];
+        $birth = $_POST['birth_date'];
+        $age = calculateAgeFromBirth($birth);
+        $gender = $_POST['gender'];
+        $date_created = date("Y-m-d H:i:s");
+        $deleted = 0;
     }
 }
