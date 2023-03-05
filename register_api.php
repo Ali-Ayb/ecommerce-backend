@@ -19,5 +19,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             return $randomString;
         }
+
+        function calculateAgeFromBirth($birth_date)
+        {
+            $today = date("Y-m-d");
+            $diff = date_diff(date_create($birth_date), date_create($today));
+            $age = $diff->format('%y');
+            return $age;
+        };
     }
 }
