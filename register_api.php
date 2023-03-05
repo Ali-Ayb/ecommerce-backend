@@ -44,5 +44,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         mysqli_stmt_bind_param($stmt, "s", $email);
         mysqli_stmt_execute($stmt);
         mysqli_stmt_store_result($stmt);
+        if (mysqli_stmt_num_rows($stmt) > 0) {
+            $err =  'email Already exists';
+            $response = [
+                "response" => $err
+            ];
+            echo json_encode([$response]);
+        } else {
+            $sql = "INSERT INTO users ( email, first_name, last_name, password, salt, age, gender, date_created , deleted) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            if ($stmt = mysqli_prepare($link, $sql)) {
+                mysqli_stmt_bind_param($stmt, "sssssssss", $email, $hashedPassword, $salt, $password, $salt, $age, $gender, $date_created, $deleted);
+                if (mysqli_stmt_execute($stmt)) {
+                    $success = "Insert Successful";
+                    $response = [
+                        "response" => $success
+                    ];
+
+                    echo json_encode([$response]);
+                } else {
+                    $err =  "Error Execute";
+                    $response = [
+                        "response" => $err
+                    ];
+                    echo json_encode([$response]);
+                }
+            } else {
+                $err =  "Error prepare";
+                $response = [
+                    "response" => $err
+                ];
+                echo json_encode([$response]);
+            }
+        }
     }
 }
