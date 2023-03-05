@@ -18,6 +18,7 @@ while($row = $result -> fetch_array(MYSQLI_NUM)){
     $arr['img'] = $row[2];
     $arr['desc'] = $row[3];
     $arr['price'] = $row[4];
+    $arr['quantity'] = $row[5];
     array_push($response,$arr);
 }
 

@@ -17,7 +17,7 @@ $query->fetch();
 if ($num_rows == 0) {
     $response['response'] = "user not found";
 } else {
-    
+        $response["result"] = "update succefull";
         $response['user_id'] = $user_id;
         $response['email'] = $email;
         $response['first_name'] = $first_name;
@@ -32,7 +32,9 @@ if ($num_rows == 0) {
 }
 
 else {
+    print( $_POST["user_id"]);
     $response["result"] = "error";
+
 }
 
 echo json_encode($response);
