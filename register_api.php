@@ -4,7 +4,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     exit;
 }
 
-require 'connection_db.php';
+include 'connection_db.php';
 $user_name_err = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -49,16 +49,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $response = [
                 "response" => $err
             ];
-            echo json_encode([$response]);
+            echo json_encode([$err]);
         } else {
             $sql = "INSERT INTO users ( email, first_name, last_name, password, salt, age, gender, date_created , deleted) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             if ($stmt = mysqli_prepare($link, $sql)) {
                 mysqli_stmt_bind_param($stmt, "sssssssss", $email, $first_name, $last_name, $hashedPassword, $salt, $age, $gender, $date_created, $deleted);
                 if (mysqli_stmt_execute($stmt)) {
-                    $success = "Insert Successful";
-                    $response = [
-                        "response" => $success
-                    ];
+                    $success = "success";
+                    $response['status'] = "success";
 
                     echo json_encode([$response]);
                 } else {
@@ -66,14 +64,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $response = [
                         "response" => $err
                     ];
-                    echo json_encode([$response]);
+                    echo json_encode([$err]);
                 }
             } else {
                 $err =  "Error prepare";
                 $response = [
                     "response" => $err
                 ];
-                echo json_encode([$response]);
+                echo json_encode([$err]);
             }
         }
     }
