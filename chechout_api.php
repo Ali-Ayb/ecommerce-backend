@@ -8,21 +8,24 @@ $response = [];
         $user_id = $_POST["user_id"];
         $cart_id = $_POST["cart_id"];
         $date = "date";
-        $query = "insert into orders (user_id, cart_id,date) values(1,1,'date')";
-    
-        if (mysqli_query($link,$query)){
-            $response["result"] = "New record created successfully";
+        $sql = "insert into orders (user_id, cart_id,date) values(?,?,?)";
+        $query = $link->prepare($sql);
+        $query->bind_param('iis',$user_id ,$cart_id,$date);
+        $result = $query->execute();
+        
+        if($result){
+            $response["result"] = "order succefully posted !";
         }
+        
         else {
-            $response["result"] = "error while posting order";
+            $response["result"] = "can't order";
         }
     
-    }
+        }
     else {
-        print($_POST["cart_id"]);
         $response["result"] = "error";
     }
 
-
+ 
 
 echo json_encode($response);
