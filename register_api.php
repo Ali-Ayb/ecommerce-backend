@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $sql = "INSERT INTO users ( email, first_name, last_name, password, salt, age, gender, date_created , deleted) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             if ($stmt = mysqli_prepare($link, $sql)) {
-                mysqli_stmt_bind_param($stmt, "sssssssss", $email, $hashedPassword, $salt, $password, $salt, $age, $gender, $date_created, $deleted);
+                mysqli_stmt_bind_param($stmt, "sssssssss", $email, $first_name, $last_name, $hashedPassword, $salt, $age, $gender, $date_created, $deleted);
                 if (mysqli_stmt_execute($stmt)) {
                     $success = "Insert Successful";
                     $response = [
