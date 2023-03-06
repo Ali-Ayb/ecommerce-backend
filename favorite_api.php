@@ -5,8 +5,14 @@ $sql_query = "select * from favorites";
 $result = $link -> query($sql_query);
 $response = [];
 
-$row = $result -> fetch_array(MYSQLI_NUM);
+while($row = $result -> fetch_array(MYSQLI_NUM)) {
+    $arr = [];
+    $arr['user_id'] = $row[0];
+    $arr['product_id'] = $row[1];
 
-echo json_encode($row);
+    array_push($response, $arr);
+}
+
+echo json_encode($response);
 
 ?>
