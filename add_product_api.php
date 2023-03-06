@@ -13,7 +13,7 @@ $product_model_number = $_POST['product_model_number'];
 $product_quantity = $_POST['product_quantity'];
 
 $sql = "INSERT INTO products (product_name, product_brand, product_price, product_img, product_category, product_description, product_model_number, product_quantity) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-$stmt = mysqli_prepare($conn, $sql);
+$stmt = mysqli_prepare($link, $sql);
 mysqli_stmt_bind_param($stmt, "ssissssi", $product_name, $product_brand, $product_price, $product_img, $product_category, $product_description, $product_model_number, $product_quantity);
 $result = mysqli_stmt_execute($stmt);
 
