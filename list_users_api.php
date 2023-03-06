@@ -6,3 +6,4 @@ $sql = "select email, first_name, last_name, gender,age from users where deleted
 $result = mysqli_query($link, $sql);
 $users = mysqli_fetch_all($result);
 echo json_encode($users);
+?>
