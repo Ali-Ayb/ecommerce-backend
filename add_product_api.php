@@ -1,11 +1,20 @@
 <?php
 
-require_once('connection_db.php');
+include('connection_db.php');
+$photo_path = '';
+if (isset($_POST["product_img"])) {
+    $code64 = explode(',', $_POST["product_img"]);
+    $img = base64_decode($code64[1]);
+    $extension = explode(";", explode('/', $code64[0])[1])[0];
+    $photo_path = "images/" . uniqid() . "." . $extension;
+    file_put_contents($photo_path, $img);
+}
 
 $product_name = $_POST['product_name'];
 $product_brand = $_POST['product_brand'];
 $product_price = $_POST['product_price'];
-$product_img = $_POST['product_img'];
+$product_img = $photo_path;
+
 $product_category = $_POST['product_category'];
 $product_description = $_POST['product_description'];
 $product_model_number = $_POST['product_model_number'];

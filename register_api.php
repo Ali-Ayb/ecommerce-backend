@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $success = "success";
                     $response['status'] = "success";
 
-                    echo json_encode([$response]);
+                    echo json_encode($response);
                 } else {
                     $err =  "Error Execute";
                     $response = [

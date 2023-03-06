@@ -1,12 +1,9 @@
 <?php
 
-header('Content-Type: application/json');
-
 include("connection_db.php");
 
-$sql = 'select * from products';
+$sql = 'select product_name, product_brand,product_price,product_img,product_quantity from products';
 
-$result = mysqli_query($link,$sql);
-$products = mysqli_fetch_all($result,MYSQLI_ASSOC);
-echo json_encode($products)
-?>
+$result = mysqli_query($link, $sql);
+$products = mysqli_fetch_all($result);
+echo json_encode($products);

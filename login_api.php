@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $password = hash('sha256', $password . $row['salt']);
 
             if ($row['email'] === $email && $row['password'] === $password) {
-                $response['status'] = "success";
+                $response['user_id'] = $row['user_id'];
 
                 echo json_encode($response);
                 // $_SESSION['email'] = $row['email'];
